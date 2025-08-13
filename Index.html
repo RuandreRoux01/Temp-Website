@@ -1,602 +1,598 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strategic Role Transition Presentation</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            overflow: hidden;
-        }
-        
-        .presentation-container {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .header {
-            background: rgba(255,255,255,0.95);
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .header h1 {
-            color: #667eea;
-            font-size: 2.2em;
-            margin-bottom: 5px;
-        }
-        
-        .slide-counter {
-            color: #666;
-            font-size: 0.9em;
-        }
-        
-        .slide-container {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-        }
-        
-        .slide {
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            max-width: 900px;
-            width: 100%;
-            min-height: 500px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            display: none;
-            animation: slideIn 0.5s ease-in-out;
-        }
-        
-        .slide.active {
-            display: block;
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .slide h2 {
-            color: #667eea;
-            font-size: 2.5em;
-            margin-bottom: 30px;
-            text-align: center;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 15px;
-        }
-        
-        .slide h3 {
-            color: #764ba2;
-            font-size: 1.8em;
-            margin: 25px 0 15px 0;
-        }
-        
-        .slide h4 {
-            color: #495057;
-            font-size: 1.3em;
-            margin: 20px 0 10px 0;
-        }
-        
-        .highlight-box {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-            margin: 20px 0;
-            font-size: 1.2em;
-        }
-        
-        .revenue-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .revenue-item {
-            background: linear-gradient(135deg, #fd7e14 0%, #e83e8c 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .revenue-amount {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        
-        .timeline-phases {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .phase {
-            background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .phase-duration {
-            background: rgba(255,255,255,0.3);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            margin-bottom: 10px;
-            display: inline-block;
-        }
-        
-        .advantages-list {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .advantage-item {
-            background: #f8f9fa;
-            border-left: 5px solid #28a745;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        
-        .advantage-item .checkmark {
-            color: #28a745;
-            font-weight: bold;
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-        
-        .questions-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .question-item {
-            background: #fff3cd;
-            border: 2px solid #ffeaa7;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #667eea;
-        }
-        
-        .question-item strong {
-            color: #856404;
-            display: block;
-            margin-bottom: 10px;
-            font-size: 1.1em;
-        }
-        
-        .navigation {
-            background: rgba(255,255,255,0.95);
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .nav-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .nav-button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .slide-dots {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ccc;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .dot.active {
-            background: #667eea;
-            transform: scale(1.2);
-        }
-        
-        ul {
-            padding-left: 20px;
-            margin: 15px 0;
-        }
-        
-        li {
-            margin: 8px 0;
-            font-size: 1.1em;
-        }
-        
-        .cta-section {
-            background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 20px 0;
-        }
-        
-        .metric-box {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #667eea;
-        }
-    </style>
-</head>
-<body>
-    <div class="presentation-container">
-        <div class="header">
-            <h1>Strategic Role Transition Proposal</h1>
-            <div class="slide-counter">
-                Slide <span id="current-slide">1</span> of <span id="total-slides">8</span>
-            </div>
-        </div>
-        
-        <div class="slide-container">
-            <!-- Slide 1: Title & Overview -->
-            <div class="slide active">
-                <h2>CSM to Supply Chain Analyst</h2>
-                <div class="highlight-box">
-                    <h3>Transforming Customer Success into Revenue Generation</h3>
-                    <p>Leveraging Industrial Engineering expertise and proven analytics delivery to capture $2,400+ monthly recurring revenue</p>
-                </div>
-                <div style="text-align: center; margin-top: 40px;">
-                    <h4>Key Opportunity Highlights:</h4>
-                    <ul style="display: inline-block; text-align: left; font-size: 1.2em;">
-                        <li>4 high-value clients ready for enhanced services</li>
-                        <li>Proven track record with Takealot & Karndean</li>
-                        <li>Unique technical expertise in the team</li>
-                        <li>Scalable service delivery model</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- Slide 2: Revenue Opportunity -->
-            <div class="slide">
-                <h2>Revenue Opportunity</h2>
-                <div class="revenue-grid">
-                    <div class="revenue-item">
-                        <h4>DataMart Access</h4>
-                        <div class="revenue-amount">$300</div>
-                        <p>Monthly per client</p>
-                    </div>
-                    <div class="revenue-item">
-                        <h4>Report Hosting</h4>
-                        <div class="revenue-amount">$200</div>
-                        <p>Monthly per client</p>
-                    </div>
-                    <div class="revenue-item">
-                        <h4>Custom Development</h4>
-                        <div class="revenue-amount">Billable</div>
-                        <p>Contract rates</p>
-                    </div>
-                    <div class="revenue-item">
-                        <h4>AI Solutions</h4>
-                        <div class="revenue-amount">$500+</div>
-                        <p>Advanced services</p>
-                    </div>
-                </div>
-                <div class="highlight-box">
-                    <strong>Conservative Estimate: $2,300+ Monthly Recurring Revenue within 12 months</strong>
-                </div>
-            </div>
-            
-            <!-- Slide 3: Enhanced Services -->
-            <div class="slide">
-                <h2>Enhanced Service Portfolio</h2>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 30px 0;">
-                    <div style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; padding: 25px; border-radius: 10px; text-align: center;">
-                        <h3 style="color: white; margin-bottom: 15px;">🚀 Hosted Solutions</h3>
-                        <ul style="text-align: left; padding: 0; list-style: none;">
-                            <li>• Report hosting infrastructure</li>
-                            <li>• Gateway management</li>
-                            <li>• Daily automated refresh</li>
-                            <li>• 24/7 monitoring</li>
-                        </ul>
-                    </div>
-                    <div style="background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%); color: white; padding: 25px; border-radius: 10px; text-align: center;">
-                        <h3 style="color: white; margin-bottom: 15px;">🤖 AI Automation</h3>
-                        <ul style="text-align: left; padding: 0; list-style: none;">
-                            <li>• Power Automate optimization</li>
-                            <li>• Data manipulation automation</li>
-                            <li>• Custom AI solutions</li>
-                            <li>• Intelligent workflows</li>
-                        </ul>
-                    </div>
-                    <div style="background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%); color: white; padding: 25px; border-radius: 10px; text-align: center;">
-                        <h3 style="color: white; margin-bottom: 15px;">📊 Advanced Analytics</h3>
-                        <ul style="text-align: left; padding: 0; list-style: none;">
-                            <li>• DataMart integration</li>
-                            <li>• Forecasting modules</li>
-                            <li>• Custom dashboards</li>
-                            <li>• Real-time monitoring</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 4: Implementation Timeline -->
-            <div class="slide">
-                <h2>Implementation Timeline</h2>
-                <div class="timeline-phases">
-                    <div class="phase">
-                        <div class="phase-duration">Months 1-6</div>
-                        <h4>Current Focus</h4>
-                        <ul style="text-align: left; padding: 0; list-style: none; font-size: 0.9em;">
-                            <li>• Complete Kellanova</li>
-                            <li>• Maintain CSM duties</li>
-                            <li>• Power Automate training</li>
-                            <li>• Develop hosting proposal</li>
-                        </ul>
-                    </div>
-                    <div class="phase">
-                        <div class="phase-duration">Months 7-9</div>
-                        <h4>Transition Start</h4>
-                        <ul style="text-align: left; padding: 0; list-style: none; font-size: 0.9em;">
-                            <li>• Launch hosted reports</li>
-                            <li>• Train junior CSM</li>
-                            <li>• Implement automation</li>
-                            <li>• 70% analyst role</li>
-                        </ul>
-                    </div>
-                    <div class="phase">
-                        <div class="phase-duration">Months 10-12</div>
-                        <h4>Full Implementation</h4>
-                        <ul style="text-align: left; padding: 0; list-style: none; font-size: 0.9em;">
-                            <li>• Complete transition</li>
-                            <li>• Manage junior CSM</li>
-                            <li>• Launch AI services</li>
-                            <li>• Training programs</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 5: Competitive Advantages -->
-            <div class="slide">
-                <h2>Why This Investment Makes Sense</h2>
-                <div class="advantages-list">
-                    <div class="advantage-item">
-                        <span class="checkmark">✓</span>
-                        <strong>Unique Expertise:</strong> Only team member with Industrial Engineering background + proven custom solution delivery
-                    </div>
-                    <div class="advantage-item">
-                        <span class="checkmark">✓</span>
-                        <strong>Established Relationships:</strong> Direct access to high-value clients already requesting these services
-                    </div>
-                    <div class="advantage-item">
-                        <span class="checkmark">✓</span>
-                        <strong>Proven Track Record:</strong> Successful custom BI delivery for Takealot and Karndean
-                    </div>
-                    <div class="advantage-item">
-                        <span class="checkmark">✓</span>
-                        <strong>Market Differentiation:</strong> Moving from reactive support to proactive value creation
-                    </div>
-                    <div class="advantage-item">
-                        <span class="checkmark">✓</span>
-                        <strong>Scalable Model:</strong> Each solution can be replicated and improved for future clients
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 6: Success Metrics -->
-            <div class="slide">
-                <h2>Success Metrics & ROI</h2>
-                <div class="metrics-grid">
-                    <div class="metric-box">
-                        <h4>12-Month Targets:</h4>
-                        <ul>
-                            <li>4+ clients on hosted reporting</li>
-                            <li>$2,300+ monthly recurring revenue</li>
-                            <li>2+ AI automation solutions</li>
-                            <li>Junior CSM fully operational</li>
-                            <li>Power Automate training program</li>
-                        </ul>
-                    </div>
-                    <div class="metric-box">
-                        <h4>Strategic Outcomes:</h4>
-                        <ul>
-                            <li>Enhanced competitive positioning</li>
-                            <li>Improved client retention</li>
-                            <li>Scalable service delivery</li>
-                            <li>Team capability enhancement</li>
-                            <li>Direct growth contribution</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 7: Key Questions -->
-            <div class="slide">
-                <h2>Strategic Discussion Points</h2>
-                <div class="questions-grid">
-                    <div class="question-item">
-                        <strong>Future Vision & Career Development:</strong>
-                        Where do you see me fitting into the company's long-term strategic vision?
-                    </div>
-                    <div class="question-item">
-                        <strong>Compensation & Overtime Management:</strong>
-                        How will overtime be managed given expanded technical responsibilities?
-                    </div>
-                    <div class="question-item">
-                        <strong>Performance Measurement:</strong>
-                        What KPIs will evaluate performance in this hybrid role?
-                    </div>
-                    <div class="question-item">
-                        <strong>Resource Allocation:</strong>
-                        What's the approved budget for technology upgrades and staffing?
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 8: Call to Action -->
-            <div class="slide">
-                <h2>Investment Recommendation</h2>
-                <div class="cta-section">
-                    <h3>High-ROI Strategic Opportunity</h3>
-                    <p style="font-size: 1.2em; margin: 20px 0;">This role transition transforms our service delivery model while capturing significant new revenue streams through proven expertise and identified client demand.</p>
-                </div>
-                <div style="text-align: center; margin-top: 40px;">
-                    <h4>Required Resources:</h4>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
-                            <strong>Technology Upgrade</strong><br>
-                            High-performance laptop for development
-                        </div>
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
-                            <strong>Role Specification</strong><br>
-                            Updated job description with clear KPIs
-                        </div>
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
-                            <strong>Junior CSM Hire</strong><br>
-                            Support for smooth transition
-                        </div>
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
-                            <strong>Compensation Review</strong><br>
-                            Salary adjustment for expanded role
-                        </div>
-                    </div>
-                </div>
-                <div class="highlight-box" style="margin-top: 30px;">
-                    <strong>Next Step: Approve transition timeline and resource allocation</strong>
-                </div>
-            </div>
-        </div>
-        
-        <div class="navigation">
-            <button class="nav-button" id="prev-btn" onclick="prevSlide()">← Previous</button>
-            <div class="slide-dots" id="slide-dots"></div>
-            <button class="nav-button" id="next-btn" onclick="nextSlide()">Next →</button>
-        </div>
-    </div>
+import React, { useState, useEffect } from 'react';
+import { Play, Pause, Plus, Clock, Calendar, BarChart3, CheckCircle2, Circle, AlertCircle, Zap, Trash2, Edit3, Save, X } from 'lucide-react';
+
+const ProductivityDashboard = () => {
+  const [tasks, setTasks] = useState([
+    { id: 1, title: 'Review project proposal', priority: 'high', estimatedTime: 45, actualTime: 0, completed: false, category: 'work', client: 'Acme Corp' },
+    { id: 2, title: 'Team standup meeting', priority: 'medium', estimatedTime: 30, actualTime: 25, completed: true, category: 'meetings', client: 'TechStart Inc' },
+    { id: 3, title: 'Update portfolio website', priority: 'medium', estimatedTime: 120, actualTime: 90, completed: false, category: 'personal', client: 'Personal' }
+  ]);
+  
+  const [activeTimer, setActiveTimer] = useState(null);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [timerInterval, setTimerInterval] = useState(null);
+  const [newTask, setNewTask] = useState({ title: '', priority: 'medium', estimatedTime: 30, category: 'work', client: 'Personal' });
+  const [view, setView] = useState('dashboard');
+  const [editingTime, setEditingTime] = useState(null);
+  const [tempTime, setTempTime] = useState(0);
+  const [clients, setClients] = useState(['Personal', 'Acme Corp', 'TechStart Inc', 'Design Studio']);
+  const [newClient, setNewClient] = useState('');
+  const [showAddClient, setShowAddClient] = useState(false);
+  const [timeLog, setTimeLog] = useState([
+    { id: 1, taskId: 2, duration: 25, date: new Date().toISOString().split('T')[0], category: 'meetings', client: 'TechStart Inc' },
+    { id: 2, taskId: 3, duration: 90, date: new Date().toISOString().split('T')[0], category: 'personal', client: 'Personal' }
+  ]);
+
+  useEffect(() => {
+    if (activeTimer) {
+      const interval = setInterval(() => {
+        setCurrentTime(prev => prev + 1);
+      }, 1000);
+      setTimerInterval(interval);
+      return () => clearInterval(interval);
+    } else if (timerInterval) {
+      clearInterval(timerInterval);
+      setTimerInterval(null);
+    }
+  }, [activeTimer]);
+
+  const formatTime = (minutes) => {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    if (hours > 0) {
+      return `${hours}h ${mins}m`;
+    }
+    return `${mins}m`;
+  };
+
+  const formatTimerDisplay = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const startTimer = (taskId) => {
+    if (activeTimer) {
+      stopTimer();
+    }
+    setActiveTimer(taskId);
+    setCurrentTime(0);
+  };
+
+  const stopTimer = () => {
+    if (activeTimer && currentTime > 0) {
+      const timeInMinutes = Math.ceil(currentTime / 60);
+      
+      setTasks(prev => prev.map(task => 
+        task.id === activeTimer 
+          ? { ...task, actualTime: task.actualTime + timeInMinutes }
+          : task
+      ));
+
+      const task = tasks.find(t => t.id === activeTimer);
+      setTimeLog(prev => [...prev, {
+        id: Date.now(),
+        taskId: activeTimer,
+        duration: timeInMinutes,
+        date: new Date().toISOString().split('T')[0],
+        category: task?.category || 'work',
+        client: task?.client || 'Personal'
+      }]);
+    }
     
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
-        
-        // Initialize presentation
-        document.getElementById('total-slides').textContent = totalSlides;
-        createDots();
-        updateSlideDisplay();
-        
-        function createDots() {
-            const dotsContainer = document.getElementById('slide-dots');
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'dot';
-                if (i === 0) dot.classList.add('active');
-                dot.onclick = () => goToSlide(i);
-                dotsContainer.appendChild(dot);
-            }
-        }
-        
-        function updateSlideDisplay() {
-            // Hide all slides
-            slides.forEach(slide => slide.classList.remove('active'));
+    setActiveTimer(null);
+    setCurrentTime(0);
+  };
+
+  const addTask = () => {
+    if (newTask.title.trim()) {
+      setTasks(prev => [...prev, {
+        id: Date.now(),
+        ...newTask,
+        actualTime: 0,
+        completed: false
+      }]);
+      setNewTask({ title: '', priority: 'medium', estimatedTime: 30, category: 'work', client: 'Personal' });
+    }
+  };
+
+  const addClient = () => {
+    if (newClient.trim() && !clients.includes(newClient.trim())) {
+      setClients(prev => [...prev, newClient.trim()]);
+      setNewClient('');
+      setShowAddClient(false);
+    }
+  };
+
+  const toggleTask = (id) => {
+    setTasks(prev => prev.map(task => 
+      task.id === id ? { ...task, completed: !task.completed } : task
+    ));
+  };
+
+  const deleteTask = (id) => {
+    setTasks(prev => prev.filter(task => task.id !== id));
+    // Also remove related time logs
+    setTimeLog(prev => prev.filter(log => log.taskId !== id));
+    // Stop timer if it's running for this task
+    if (activeTimer === id) {
+      setActiveTimer(null);
+      setCurrentTime(0);
+    }
+  };
+
+  const startEditingTime = (taskId) => {
+    const task = tasks.find(t => t.id === taskId);
+    setEditingTime(taskId);
+    setTempTime(task.actualTime);
+  };
+
+  const saveTimeEdit = () => {
+    setTasks(prev => prev.map(task => 
+      task.id === editingTime 
+        ? { ...task, actualTime: Math.max(0, tempTime) }
+        : task
+    ));
+    setEditingTime(null);
+    setTempTime(0);
+  };
+
+  const cancelTimeEdit = () => {
+    setEditingTime(null);
+    setTempTime(0);
+  };
+
+  const getPriorityColor = (priority) => {
+    switch (priority) {
+      case 'high': return 'text-red-600 bg-red-50 border-red-200';
+      case 'medium': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+      case 'low': return 'text-green-600 bg-green-50 border-green-200';
+      default: return 'text-gray-600 bg-gray-50 border-gray-200';
+    }
+  };
+
+  const getPriorityIcon = (priority) => {
+    switch (priority) {
+      case 'high': return <AlertCircle className="w-4 h-4" />;
+      case 'medium': return <Clock className="w-4 h-4" />;
+      case 'low': return <Circle className="w-4 h-4" />;
+      default: return <Circle className="w-4 h-4" />;
+    }
+  };
+
+  const getTodayStats = () => {
+    const today = new Date().toISOString().split('T')[0];
+    const todayLogs = timeLog.filter(log => log.date === today);
+    const totalTime = todayLogs.reduce((sum, log) => sum + log.duration, 0);
+    const completedTasks = tasks.filter(task => task.completed).length;
+    
+    return {
+      totalTime,
+      completedTasks,
+      totalTasks: tasks.length,
+      categories: todayLogs.reduce((acc, log) => {
+        acc[log.category] = (acc[log.category] || 0) + log.duration;
+        return acc;
+      }, {}),
+      clients: todayLogs.reduce((acc, log) => {
+        acc[log.client] = (acc[log.client] || 0) + log.duration;
+        return acc;
+      }, {})
+    };
+  };
+
+  const stats = getTodayStats();
+
+  if (view === 'analytics') {
+    return (
+      <div className="max-w-6xl mx-auto p-6 bg-white">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold text-gray-800">Analytics</h1>
+          <button 
+            onClick={() => setView('dashboard')}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
+            Back to Dashboard
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-blue-600 text-sm font-medium">Today's Focus Time</p>
+                <p className="text-2xl font-bold text-blue-800">{formatTime(stats.totalTime)}</p>
+              </div>
+              <Clock className="w-8 h-8 text-blue-600" />
+            </div>
+          </div>
+
+          <div className="bg-green-50 p-6 rounded-lg border border-green-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-green-600 text-sm font-medium">Tasks Completed</p>
+                <p className="text-2xl font-bold text-green-800">{stats.completedTasks}/{stats.totalTasks}</p>
+              </div>
+              <CheckCircle2 className="w-8 h-8 text-green-600" />
+            </div>
+          </div>
+
+          <div className="bg-purple-50 p-6 rounded-lg border border-purple-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-purple-600 text-sm font-medium">Completion Rate</p>
+                <p className="text-2xl font-bold text-purple-800">
+                  {stats.totalTasks > 0 ? Math.round((stats.completedTasks / stats.totalTasks) * 100) : 0}%
+                </p>
+              </div>
+              <BarChart3 className="w-8 h-8 text-purple-600" />
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold mb-4">Time by Category</h3>
+          <div className="space-y-3">
+            {Object.entries(stats.categories).map(([category, time]) => (
+              <div key={category} className="flex items-center justify-between">
+                <span className="capitalize text-gray-700">{category}</span>
+                <span className="font-medium text-gray-900">{formatTime(time)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <h3 className="text-lg font-semibold mb-4">Time by Client</h3>
+          <div className="space-y-3">
+            {Object.entries(stats.clients)
+              .sort(([,a], [,b]) => b - a)
+              .map(([client, time]) => (
+              <div key={client} className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className={`w-3 h-3 rounded-full ${client === 'Personal' ? 'bg-gray-400' : 'bg-blue-500'}`}></div>
+                  <span className="text-gray-700">{client}</span>
+                </div>
+                <div className="text-right">
+                  <span className="font-medium text-gray-900">{formatTime(time)}</span>
+                  <div className="text-xs text-gray-500">
+                    {stats.totalTime > 0 ? Math.round((time / stats.totalTime) * 100) : 0}%
+                  </div>
+                </div>
+              </div>
+            ))}
+            {Object.keys(stats.clients).length === 0 && (
+              <p className="text-gray-500 text-sm">No client time logged today</p>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-6xl mx-auto p-6 bg-white">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-800">Productivity Dashboard</h1>
+          <p className="text-gray-600">Manage your time, track progress, achieve more</p>
+        </div>
+        <button 
+          onClick={() => setView('analytics')}
+          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center gap-2"
+        >
+          <BarChart3 className="w-4 h-4" />
+          Analytics
+        </button>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <div className="flex items-center gap-2">
+            <Clock className="w-5 h-5 text-blue-600" />
+            <span className="text-sm font-medium text-blue-600">Today's Focus</span>
+          </div>
+          <p className="text-xl font-bold text-blue-800 mt-1">{formatTime(stats.totalTime)}</p>
+        </div>
+
+        <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-5 h-5 text-green-600" />
+            <span className="text-sm font-medium text-green-600">Completed</span>
+          </div>
+          <p className="text-xl font-bold text-green-800 mt-1">{stats.completedTasks}/{stats.totalTasks}</p>
+        </div>
+
+        <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+          <div className="flex items-center gap-2">
+            <Zap className="w-5 h-5 text-yellow-600" />
+            <span className="text-sm font-medium text-yellow-600">Active Timer</span>
+          </div>
+          <p className="text-xl font-bold text-yellow-800 mt-1">
+            {activeTimer ? formatTimerDisplay(currentTime) : '--:--'}
+          </p>
+        </div>
+
+        <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+          <div className="flex items-center gap-2">
+            <Calendar className="w-5 h-5 text-purple-600" />
+            <span className="text-sm font-medium text-purple-600">Success Rate</span>
+          </div>
+          <p className="text-xl font-bold text-purple-800 mt-1">
+            {stats.totalTasks > 0 ? Math.round((stats.completedTasks / stats.totalTasks) * 100) : 0}%
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Task Management */}
+        <div className="lg:col-span-2">
+          <div className="bg-white border border-gray-200 rounded-lg p-6">
+            <h2 className="text-xl font-semibold mb-4">Today's Tasks</h2>
             
-            // Show current slide
-            slides[currentSlide].classList.add('active');
-            
-            // Update counter
-            document.getElementById('current-slide').textContent = currentSlide + 1;
-            
-            // Update dots
-            document.querySelectorAll('.dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentSlide);
-            });
-            
-            // Update button states
-            document.getElementById('prev-btn').disabled = currentSlide === 0;
-            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
-        }
-        
-        function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
-                currentSlide++;
-                updateSlideDisplay();
-            }
-        }
-        
-        function prevSlide() {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlideDisplay();
-            }
-        }
-        
-        function goToSlide(slideIndex) {
-            currentSlide = slideIndex;
-            updateSlideDisplay();
-        }
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                e.preventDefault();
-                nextSlide();
-            } else if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                prevSlide();
-            }
-        });
-    </script>
-</body>
-</html>
+            {/* Add New Task */}
+            <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+              <div className="flex flex-col gap-3">
+                <input
+                  type="text"
+                  placeholder="What needs to be done?"
+                  value={newTask.title}
+                  onChange={(e) => setNewTask({...newTask, title: e.target.value})}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  onKeyPress={(e) => e.key === 'Enter' && addTask()}
+                />
+                <div className="flex gap-3 flex-wrap">
+                  <select 
+                    value={newTask.priority}
+                    onChange={(e) => setNewTask({...newTask, priority: e.target.value})}
+                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="low">Low Priority</option>
+                    <option value="medium">Medium Priority</option>
+                    <option value="high">High Priority</option>
+                  </select>
+                  <select 
+                    value={newTask.category}
+                    onChange={(e) => setNewTask({...newTask, category: e.target.value})}
+                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="work">Work</option>
+                    <option value="personal">Personal</option>
+                    <option value="meetings">Meetings</option>
+                    <option value="learning">Learning</option>
+                  </select>
+                  <div className="flex items-center gap-2">
+                    <select 
+                      value={newTask.client}
+                      onChange={(e) => setNewTask({...newTask, client: e.target.value})}
+                      className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    >
+                      {clients.map(client => (
+                        <option key={client} value={client}>{client}</option>
+                      ))}
+                    </select>
+                    <button 
+                      onClick={() => setShowAddClient(!showAddClient)}
+                      className="px-2 py-2 text-blue-600 hover:bg-blue-50 rounded-lg border border-blue-300"
+                      title="Add new client"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <input
+                    type="number"
+                    placeholder="Est. minutes"
+                    value={newTask.estimatedTime}
+                    onChange={(e) => setNewTask({...newTask, estimatedTime: parseInt(e.target.value)})}
+                    className="w-24 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
+                  <button 
+                    onClick={addTask}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Add
+                  </button>
+                </div>
+                
+                {showAddClient && (
+                  <div className="flex gap-2 mt-2">
+                    <input
+                      type="text"
+                      placeholder="New client name"
+                      value={newClient}
+                      onChange={(e) => setNewClient(e.target.value)}
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      onKeyPress={(e) => e.key === 'Enter' && addClient()}
+                    />
+                    <button 
+                      onClick={addClient}
+                      className="px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                    >
+                      Add Client
+                    </button>
+                    <button 
+                      onClick={() => {setShowAddClient(false); setNewClient('');}}
+                      className="px-3 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Task List */}
+            <div className="space-y-3">
+              {tasks.map(task => (
+                <div key={task.id} className={`p-4 border rounded-lg ${task.completed ? 'bg-gray-50 border-gray-200' : 'bg-white border-gray-300'}`}>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3 flex-1">
+                      <button 
+                        onClick={() => toggleTask(task.id)}
+                        className={`flex items-center justify-center w-6 h-6 rounded-full border-2 ${
+                          task.completed 
+                            ? 'bg-green-500 border-green-500 text-white' 
+                            : 'border-gray-300 hover:border-green-500'
+                        }`}
+                      >
+                        {task.completed && <CheckCircle2 className="w-4 h-4" />}
+                      </button>
+                      
+                      <div className="flex-1">
+                        <h3 className={`font-medium ${task.completed ? 'line-through text-gray-500' : 'text-gray-800'}`}>
+                          {task.title}
+                        </h3>
+                        <div className="flex items-center gap-4 mt-1">
+                          <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full border ${getPriorityColor(task.priority)}`}>
+                            {getPriorityIcon(task.priority)}
+                            {task.priority}
+                          </span>
+                          <span className="text-xs text-gray-500 capitalize">{task.category}</span>
+                          <span className={`text-xs px-2 py-1 rounded-full ${task.client === 'Personal' ? 'bg-gray-100 text-gray-600' : 'bg-blue-100 text-blue-700'}`}>
+                            {task.client}
+                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-gray-500">
+                              Est: {formatTime(task.estimatedTime)} | Actual: 
+                            </span>
+                            {editingTime === task.id ? (
+                              <div className="flex items-center gap-1">
+                                <input
+                                  type="number"
+                                  value={tempTime}
+                                  onChange={(e) => setTempTime(parseInt(e.target.value) || 0)}
+                                  className="w-16 px-1 py-0.5 text-xs border border-gray-300 rounded"
+                                  autoFocus
+                                />
+                                <span className="text-xs text-gray-500">min</span>
+                                <button 
+                                  onClick={saveTimeEdit}
+                                  className="p-1 text-green-600 hover:bg-green-50 rounded"
+                                >
+                                  <Save className="w-3 h-3" />
+                                </button>
+                                <button 
+                                  onClick={cancelTimeEdit}
+                                  className="p-1 text-red-600 hover:bg-red-50 rounded"
+                                >
+                                  <X className="w-3 h-3" />
+                                </button>
+                              </div>
+                            ) : (
+                              <button
+                                onClick={() => startEditingTime(task.id)}
+                                className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800"
+                              >
+                                {formatTime(task.actualTime)}
+                                <Edit3 className="w-3 h-3" />
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                      {!task.completed && (
+                        <button 
+                          onClick={() => activeTimer === task.id ? stopTimer() : startTimer(task.id)}
+                          className={`px-3 py-2 rounded-lg flex items-center gap-2 ${
+                            activeTimer === task.id 
+                              ? 'bg-red-600 text-white hover:bg-red-700' 
+                              : 'bg-green-600 text-white hover:bg-green-700'
+                          }`}
+                        >
+                          {activeTimer === task.id ? (
+                            <>
+                              <Pause className="w-4 h-4" />
+                              Stop
+                            </>
+                          ) : (
+                            <>
+                              <Play className="w-4 h-4" />
+                              Start
+                            </>
+                          )}
+                        </button>
+                      )}
+                      
+                      <button 
+                        onClick={() => deleteTask(task.id)}
+                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        title="Delete task"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {activeTimer === task.id && (
+                    <div className="mt-3 pt-3 border-t border-gray-200">
+                      <div className="flex items-center justify-center">
+                        <div className="text-2xl font-mono font-bold text-green-600">
+                          {formatTimerDisplay(currentTime)}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Priority Matrix & Quick Stats */}
+        <div className="space-y-6">
+          {/* Priority Matrix */}
+          <div className="bg-white border border-gray-200 rounded-lg p-6">
+            <h3 className="text-lg font-semibold mb-4">Priority Overview</h3>
+            <div className="space-y-3">
+              {['high', 'medium', 'low'].map(priority => {
+                const priorityTasks = tasks.filter(task => task.priority === priority && !task.completed);
+                return (
+                  <div key={priority} className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      {getPriorityIcon(priority)}
+                      <span className="capitalize font-medium text-gray-700">{priority} Priority</span>
+                    </div>
+                    <span className="text-sm bg-gray-100 px-2 py-1 rounded">
+                      {priorityTasks.length} tasks
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Recent Activity */}
+          <div className="bg-white border border-gray-200 rounded-lg p-6">
+            <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
+            <div className="space-y-3">
+              {timeLog.slice(-5).reverse().map(log => {
+                const task = tasks.find(t => t.id === log.taskId);
+                return (
+                  <div key={log.id} className="flex items-center justify-between text-sm">
+                    <span className="text-gray-600 truncate">
+                      {task?.title || 'Unknown task'}
+                    </span>
+                    <span className="font-medium text-gray-800">
+                      {formatTime(log.duration)}
+                    </span>
+                  </div>
+                );
+              })}
+              {timeLog.length === 0 && (
+                <p className="text-gray-500 text-sm">No activity yet today</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProductivityDashboard;
